@@ -87,6 +87,44 @@ Post-response scanning for dangerous outputs — if sensitive terms are detected
 🧾 Transparent Logging
 All decisions (PASS, FAIL, etc.) are documented with reasons in the result report for human review and auditability.
 
+## 🔐 How “Safe Mode” Works
+Safe Mode is a built-in security layer that proactively filters out dangerous prompts before they are sent to the language model.
+
+🧪 What it Does:
+Scans each prompt for high-risk keywords or patterns, such as:
+
+"ignore"
+
+"bypass"
+
+"forget previous"
+
+"reveal"
+
+"confidential"
+
+If any such terms are found, the prompt is:
+
+Blocked from reaching the model.
+
+Logged with the result BLOCKED and an appropriate reason.
+
+This ensures that known jailbreaks and injections are neutralized early, not relying solely on the model's internal safeguards.
+
+🔁 When Safe Mode is Active:
+By default, Safe Mode is ON.
+
+You can explicitly control it via command-line:
+```
+| Mode                        | Command                               |
+| --------------------------- | ------------------------------------- |
+| Safe Mode ON (default)      | `python jailbreak_tester.py`          |
+| Safe Mode explicitly ON     | `python jailbreak_tester.py --safe`   |
+| Safe Mode OFF (Unsafe Mode) | `python jailbreak_tester.py --unsafe` |
+```
+
+
+
 ## 📁 Output Example (llm_test_results.txt)
 === JAIL BREAK TESTER RESULTS TABLE ===
 
